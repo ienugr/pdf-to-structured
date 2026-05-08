@@ -1,0 +1,39 @@
+spring:
+  servlet:
+    multipart:
+      # Maximum size of a single uploaded PDF.  Increase for large documents.
+      max-file-size: 50MB
+      max-request-size: 55MB
+
+  # Enable virtual threads (Java 21 + Spring Boot 3.2) for efficient I/O-bound conversion.
+  threads:
+    virtual:
+      enabled: true
+
+server:
+  port: 8080
+
+# ─────────────────────────────────────────────────────────────────────────────
+# Storage configuration
+#
+# app.storage.type controls which FileStorage bean is activated:
+#   passthrough  (default) — bytes returned directly; nothing written to disk
+#   local                  — bytes written to app.storage.local.dir
+#
+# To switch to local storage, either uncomment the lines below or pass the
+# property at startup:
+#   java -jar pdf-converter.jar --app.storage.type=local
+# ─────────────────────────────────────────────────────────────────────────────
+app:
+  storage:
+    type: passthrough
+    local:
+      # Directory on the local filesystem where converted files are stored.
+      dir: ./uploads
+      # Base URL used to build the download link returned to clients.
+      # Change this to your public hostname in production.
+      base-url: http://localhost:8080
+
+logging:
+  level:
+    com.example.pdfconverter: INFO
