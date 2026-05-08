@@ -36,4 +36,4 @@ app:
 
 logging:
   level:
-    com.example.pdfconverter: INFO
+    gr.ienu.pdfconverter: INFO
