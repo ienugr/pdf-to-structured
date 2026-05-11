@@ -1,15 +1,15 @@
 # pdf-to-structured
 
-A Spring Boot REST API that converts PDF files into structured formats — Markdown, JSON, HTML, plain text, and more — powered by [OpenDataLoader PDF](https://github.com/opendataloader-project/opendataloader-pdf).
+A Spring Boot REST API that converts PDF files into structured formats - Markdown, JSON, HTML, plain text, and more - powered by [OpenDataLoader PDF](https://github.com/opendataloader-project/opendataloader-pdf).
 
 ## Features
 
-- **Multiple output formats** — Markdown, JSON, HTML, plain text, tagged PDF, and Markdown variants with embedded HTML or images
-- **Password-protected PDFs** — pass the password as a request parameter
-- **Page range selection** — convert specific pages rather than the whole document
-- **Pluggable storage** — return converted bytes directly (passthrough, default) or persist files to local disk and get back a download URL
-- **RFC 7807 error responses** — structured, machine-readable `ProblemDetail` JSON for all errors
-- **Virtual threads** — runs on Java 21 virtual threads for efficient I/O-bound workloads
+- **Multiple output formats** - Markdown, JSON, HTML, plain text, tagged PDF, and Markdown variants with embedded HTML or images
+- **Password-protected PDFs** - pass the password as a request parameter
+- **Page range selection** - convert specific pages rather than the whole document
+- **Pluggable storage** - return converted bytes directly (passthrough, default) or persist files to local disk and get back a download URL
+- **RFC 7807 error responses** - structured, machine-readable `ProblemDetail` JSON for all errors
+- **Virtual threads** - runs on Java 21 virtual threads for efficient I/O-bound workloads
 
 ## Requirements
 
@@ -36,9 +36,9 @@ Converts a PDF file to the requested format.
 
 | Parameter           | Type    | Required | Default  | Description                                                                                       |
 |---------------------|---------|----------|----------|---------------------------------------------------------------------------------------------------|
-| `file`              | file    | yes      | —        | The PDF file to convert                                                                           |
-| `format`            | string  | yes      | —        | Output format (see [Supported formats](#supported-formats))                                       |
-| `password`          | string  | no       | —        | Password for encrypted PDFs                                                                       |
+| `file`              | file    | yes      | -        | The PDF file to convert                                                                           |
+| `format`            | string  | yes      | -        | Output format (see [Supported formats](#supported-formats))                                       |
+| `password`          | string  | no       | -        | Password for encrypted PDFs                                                                       |
 | `pages`             | string  | no       | all      | Page range, e.g. `1,3,5-7`                                                                       |
 | `keepLineBreaks`    | boolean | no       | `false`  | Preserve original line breaks                                                                     |
 | `includeHeaderFooter` | boolean | no     | `false`  | Include page headers and footers                                                                  |
@@ -58,7 +58,7 @@ Converts a PDF file to the requested format.
 | `markdown-with-images`| `text/markdown`       | Markdown with embedded base64 images     |
 | `tagged-pdf`          | `application/pdf`     | Accessibility-tagged PDF                 |
 
-#### Response — passthrough storage (default)
+#### Response - passthrough storage (default)
 
 The converted file is returned as a binary download:
 
@@ -71,7 +71,7 @@ Content-Disposition: attachment; filename="document.md"
 ...
 ```
 
-#### Response — local storage
+#### Response - local storage
 
 When `app.storage.type=local`, a JSON body with a download URL is returned instead:
 
@@ -105,10 +105,10 @@ All errors follow [RFC 7807](https://www.rfc-editor.org/rfc/rfc7807) (`applicati
 | Conversion failed               | `422`       |
 | Storage error                   | `500`       |
 
-#### Example — curl
+#### Example - curl
 
 ```bash
-# Convert to Markdown (passthrough — file downloaded directly)
+# Convert to Markdown (passthrough - file downloaded directly)
 curl -X POST http://localhost:8080/api/v1/convert \
   -F "file=@report.pdf" \
   -F "format=markdown" \
@@ -171,11 +171,11 @@ gr.ienu.pdfconverter
 ├── domain/               # Core types: OutputFormat, ConversionJob, ConversionOptions, exceptions
 ├── converter/            # PdfConverter port + OpenDataLoader adapter
 ├── storage/              # FileStorage port + Passthrough and Local adapters
-├── service/              # PdfConversionService — orchestrates converter + storage
+├── service/              # PdfConversionService - orchestrates converter + storage
 └── web/                  # Spring MVC controllers and error handler
 ```
 
-Storage and converter backends are swapped via `@ConditionalOnProperty` — no code changes required.
+Storage and converter backends are swapped via `@ConditionalOnProperty` - no code changes required.
 
 ## Tech stack
 
